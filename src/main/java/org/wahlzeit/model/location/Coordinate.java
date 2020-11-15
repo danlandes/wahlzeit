@@ -56,6 +56,7 @@ public class Coordinate {
 
     public boolean isEqual(final Coordinate other) {
         if (this == other) return true;
+        // a location is equal when the distance between them is lower than the tolerated deviation
         return this.getDistance(other) <= toleratedDeviation;
     }
 
