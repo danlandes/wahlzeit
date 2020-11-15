@@ -1,7 +1,17 @@
 package org.wahlzeit.model.location;
 
 public class Coordinate {
+    public static String TABLENAME_X = "location_x";
+    public static String TABLENAME_Y = "location_y";
+    public static String TABLENAME_Z = "location_z";
     private double x;
+
+    public Coordinate(final double x, final double y, final double z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
     private double y;
     private double z;
     private static final double toleratedDeviation = 5;
@@ -38,12 +48,15 @@ public class Coordinate {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final Coordinate that = (Coordinate) o;
+    public boolean equals(final Object other) {
+        if (other == null || getClass() != other.getClass()) return false;
+        final Coordinate that = (Coordinate) other;
+       return isEqual(that);
+    }
 
-        return this.getDistance(that) <= toleratedDeviation;
+    public boolean isEqual(final Coordinate other) {
+        if (this == other) return true;
+        return this.getDistance(other) <= toleratedDeviation;
     }
 
     @Override
