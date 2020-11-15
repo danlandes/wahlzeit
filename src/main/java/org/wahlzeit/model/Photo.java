@@ -31,9 +31,6 @@ import org.wahlzeit.utils.*;
  */
 public class Photo extends DataObject {
 
-	/**
-	 * 
-	 */
 	public static final String IMAGE = "image";
 	public static final String THUMB = "thumb";
 	public static final String LINK = "link";
@@ -49,64 +46,34 @@ public class Photo extends DataObject {
 	public static final String IS_INVISIBLE = "isInvisible";
 	public static final String UPLOADED_ON = "uploadedOn";
 	
-	/**
-	 * 
-	 */
 	public static final int MAX_PHOTO_WIDTH = 420;
 	public static final int MAX_PHOTO_HEIGHT = 600;
 	public static final int MAX_THUMB_PHOTO_WIDTH = 105;
 	public static final int MAX_THUMB_PHOTO_HEIGHT = 150;
 	
-	/**
-	 * 
-	 */
 	protected PhotoId id = null;
 	
-	/**
-	 * 
-	 */
 	protected int ownerId = 0;
 	protected String ownerName;
 
-	/**
-	 * 
-	 */
 	protected boolean ownerNotifyAboutPraise = false;
 	protected EmailAddress ownerEmailAddress = EmailAddress.EMPTY;
 	protected Language ownerLanguage = Language.ENGLISH;
 	protected URL ownerHomePage;
 	
-	/**
-	 * 
-	 */
 	protected int width;
 	protected int height;
 	protected PhotoSize maxPhotoSize = PhotoSize.MEDIUM; // derived
 	
-	/**
-	 * 
-	 */
 	protected Tags tags = Tags.EMPTY_TAGS;
 
-	/**
-	 * 
-	 */
 	protected PhotoStatus status = PhotoStatus.VISIBLE;
 	
-	/**
-	 * 
-	 */
 	protected int praiseSum = 10;
 	protected int noVotes = 1;
 	
-	/**
-	 * 
-	 */
 	protected long creationTime = System.currentTimeMillis();
 	
-	/**
-	 * 
-	 */
 	public Photo() {
 		id = PhotoId.getNextId();
 		incWriteCount();
@@ -138,9 +105,6 @@ public class Photo extends DataObject {
 		return String.valueOf(id.asInt());
 	}
 	
-	/**
-	 * 
-	 */
 	public void readFrom(ResultSet rset) throws SQLException {
 		id = PhotoId.getIdFromInt(rset.getInt("id"));
 
@@ -166,9 +130,6 @@ public class Photo extends DataObject {
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
 	}
 	
-	/**
-	 * 
-	 */
 	public void writeOn(ResultSet rset) throws SQLException {
 		rset.updateInt("id", id.asInt());
 		rset.updateInt("owner_id", ownerId);
@@ -186,9 +147,6 @@ public class Photo extends DataObject {
 		rset.updateLong("creation_time", creationTime);		
 	}
 
-	/**
-	 * 
-	 */
 	public void writeId(PreparedStatement stmt, int pos) throws SQLException {
 		stmt.setInt(pos, id.asInt());
 	}
@@ -285,16 +243,10 @@ public class Photo extends DataObject {
 		incWriteCount();
 	}
 
-	/**
-	 * 
-	 */
 	public Language getOwnerLanguage() {
 		return ownerLanguage;
 	}
 	
-	/**
-	 * 
-	 */
 	public void setOwnerLanguage(Language newLanguage) {
 		ownerLanguage = newLanguage;
 		incWriteCount();
