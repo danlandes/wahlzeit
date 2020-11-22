@@ -1,8 +1,11 @@
-package org.wahlzeit.model;
+package org.wahlzeit.model.plant;
 
 import org.junit.Test;
 import org.wahlzeit.mocks.MockFlowerPhotoResultSet;
 import org.wahlzeit.mocks.MockTreePhotoResultSet;
+import org.wahlzeit.model.Photo;
+import org.wahlzeit.model.PhotoFactory;
+import org.wahlzeit.model.PhotoId;
 import org.wahlzeit.model.plants.FlowerPhoto;
 import org.wahlzeit.model.plants.PlantPhoto;
 import org.wahlzeit.model.plants.PlantPhotoFactory;

@@ -5,16 +5,15 @@ public class Coordinate {
     public static String TABLENAME_Y = "location_y";
     public static String TABLENAME_Z = "location_z";
     private double x;
+    private double y;
+    private double z;
+    private static final double toleratedDeviation = 5;
 
     public Coordinate(final double x, final double y, final double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
-
-    private double y;
-    private double z;
-    private static final double toleratedDeviation = 5;
 
     public double getX() {
         return x;
