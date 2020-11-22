@@ -22,6 +22,7 @@ package org.wahlzeit.model;
 
 import java.sql.*;
 
+import org.wahlzeit.model.plants.PlantPhotoFactory;
 import org.wahlzeit.services.*;
 
 /**
@@ -40,7 +41,7 @@ public class PhotoFactory {
 	public static synchronized PhotoFactory getInstance() {
 		if (instance == null) {
 			SysLog.logSysInfo("setting generic PhotoFactory");
-			setInstance(new PhotoFactory());
+			setInstance(new PlantPhotoFactory());
 		}
 		
 		return instance;
