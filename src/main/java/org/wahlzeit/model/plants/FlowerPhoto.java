@@ -12,6 +12,14 @@ public class FlowerPhoto extends PlantPhoto {
         super(myId);
     }
 
+    public String getFlowerColor() {
+        return flowerColor;
+    }
+
+    public void setFlowerColor(final String flowerColor) {
+        this.flowerColor = flowerColor;
+    }
+
     public FlowerPhoto(final ResultSet resultSet) throws SQLException {
         super(resultSet);
         readFrom(resultSet);

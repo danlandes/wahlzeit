@@ -6,18 +6,29 @@ import org.wahlzeit.model.PhotoId;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-class PlantPhoto extends Photo {
+public class PlantPhoto extends Photo {
 
     public String speciesLatin = "Nihil omnino mercedis";
     public String speciesEN = "not specified";
 
-    protected PlantPhoto(final String speciesLatin, final String speciesEN) {
-        this.speciesLatin = speciesLatin;
+    public PlantPhoto(PhotoId myId) {
+        super(myId);
+    }
+
+    public String getSpeciesEN() {
+        return speciesEN;
+    }
+
+    public void setSpeciesEN(final String speciesEN) {
         this.speciesEN = speciesEN;
     }
 
-    public PlantPhoto(PhotoId myId) {
-        super(myId);
+    public String getSpeciesLatin() {
+        return speciesLatin;
+    }
+
+    public void setSpeciesLatin(final String speciesLatin) {
+        this.speciesLatin = speciesLatin;
     }
 
     public PlantPhoto(final ResultSet resultSet) throws SQLException {

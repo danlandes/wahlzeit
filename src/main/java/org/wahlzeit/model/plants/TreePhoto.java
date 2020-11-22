@@ -18,6 +18,14 @@ public class TreePhoto extends PlantPhoto {
         readFrom(resultSet);
     }
 
+    public String getTreeFruits() {
+        return treeFruits;
+    }
+
+    public void setTreeFruits(final String treeFruits) {
+        this.treeFruits = treeFruits;
+    }
+
     @Override
     public void readFrom(ResultSet rset) throws SQLException {
         super.readFrom(rset);
