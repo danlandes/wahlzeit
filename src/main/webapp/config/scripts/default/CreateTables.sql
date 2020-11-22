@@ -32,7 +32,11 @@ CREATE TABLE photos (
 	creation_time bigint,
 	location_x double precision,
 	location_y double precision,
-	location_z double precision
+	location_z double precision,
+	plant_species_en text,
+	plant_species_latin text,
+	plant_flower_color text,
+	plant_tree_fruits text
 );
 
 CREATE TABLE tags (
