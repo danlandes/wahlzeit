@@ -16,7 +16,7 @@ public class SphericCoordinate implements ICoordinate {
     public double getTheta() { return theta; }
     public double getRadius() { return radius; }
     public double getLatitude() { return theta; }
-    public double getLongitude() { return theta; }
+    public double getLongitude() { return phi; }
 
     @Override
     public boolean isEqual(final ICoordinate coordinate) {
@@ -33,10 +33,9 @@ public class SphericCoordinate implements ICoordinate {
         final SphericCoordinate first = this;
         final SphericCoordinate second = coordinate.asSphericCoordinate();
         double deltaLongitude = Math.abs(first.getLongitude() - second.getLongitude());
-        double deltaLatitude = Math.abs(first.getLatitude() - second.getLatitude());
-        double body = sinSqr(deltaLatitude / 2)
-                + Math.cos(first.getLatitude()) * Math.cos(second.getLatitude()) * sinSqr(deltaLongitude / 2);
-        return 2 * Math.asin(Math.sqrt(body));
+
+        return   Math.acos(Math.sin(first.getLatitude()) * Math.sin(second.getLatitude())
+                + Math.cos(first.getLatitude()) * Math.cos(second.getLatitude()) * Math.cos(Math.abs(deltaLongitude)));
     }
 
     private double sinSqr(double value) {
