@@ -1,6 +1,9 @@
 package org.wahlzeit.model.location;
 
-public class CartesianCoordinate implements ICoordinate{
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class CartesianCoordinate implements ICoordinate {
     public static String TABLENAME_X = "location_x";
     public static String TABLENAME_Y = "location_y";
     public static String TABLENAME_Z = "location_z";
@@ -84,5 +87,19 @@ public class CartesianCoordinate implements ICoordinate{
         if (this == coordinate) return true;
         // a location is equal when the distance between them is lower than the tolerated deviation
         return this.getCartesianDistance(coordinate.asCartesianCoordinate()) <= toleratedDeviation;
+    }
+
+    @Override
+    public void readFrom(final ResultSet rset) throws SQLException {
+        this.x = rset.getDouble(CartesianCoordinate.TABLENAME_X);
+        this.y = rset.getDouble(CartesianCoordinate.TABLENAME_Y);
+        this.z = rset.getDouble(CartesianCoordinate.TABLENAME_Z);
+    }
+
+    @Override
+    public void writeOn(final ResultSet rset) throws SQLException {
+        rset.updateDouble(CartesianCoordinate.TABLENAME_X, this.getX());
+        rset.updateDouble(CartesianCoordinate.TABLENAME_Y, this.getY());
+        rset.updateDouble(CartesianCoordinate.TABLENAME_Z, this.getZ());
     }
 }

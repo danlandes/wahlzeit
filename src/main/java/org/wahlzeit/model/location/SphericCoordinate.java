@@ -1,6 +1,12 @@
 package org.wahlzeit.model.location;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class SphericCoordinate implements ICoordinate {
+    public static String TABLENAME_PHI = "location_PHI";
+    public static String TABLENAME_THETA = "location_THETA";
+    public static String TABLENAME_RADIUS = "location_radius";
 
     private double phi; // longitude: Angle between x-axis and vertical line between point and the area between x- and y-axis
     private double theta; // latitude: the Angle between the Z-Axsis and the the given line between sphere centre and point (Polar Angle)
@@ -56,5 +62,19 @@ public class SphericCoordinate implements ICoordinate {
     @Override
     public  SphericCoordinate asSphericCoordinate() {
         return this;
+    }
+
+    @Override
+    public void readFrom(final ResultSet rset) throws SQLException {
+        this.theta = rset.getDouble(SphericCoordinate.TABLENAME_THETA);
+        this.radius = rset.getDouble(SphericCoordinate.TABLENAME_RADIUS);
+        this.phi = rset.getDouble(SphericCoordinate.TABLENAME_PHI);
+    }
+
+    @Override
+    public void writeOn(final ResultSet rset) throws SQLException {
+        rset.updateDouble(SphericCoordinate.TABLENAME_THETA, this.getTheta());
+        rset.updateDouble(SphericCoordinate.TABLENAME_RADIUS, this.getRadius());
+        rset.updateDouble(SphericCoordinate.TABLENAME_RADIUS, this.getRadius());
     }
 }

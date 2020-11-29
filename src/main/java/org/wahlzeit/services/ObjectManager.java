@@ -6,6 +6,8 @@
 
 package org.wahlzeit.services;
 
+import org.wahlzeit.services.persistence.Persistent;
+
 import java.sql.*;
 import java.util.*;
 

@@ -18,7 +18,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package org.wahlzeit.services;
+package org.wahlzeit.services.persistence;
 
 import java.sql.*;
 
@@ -26,7 +26,7 @@ import java.sql.*;
  * A Persistent object is an object that can be read from and written to some storage.
  * Also, it has a write count, which serves as a dirty flag.
  */
-public interface Persistent {
+public interface Persistent extends SimplePersistence {
 	
 	/**
 	 * 
@@ -47,16 +47,6 @@ public interface Persistent {
 	 * 
 	 */
 	public String getIdAsString();
-	
-	/**
-	 * 
-	 */
-	public void readFrom(ResultSet rset) throws SQLException;
-	
-	/**
-	 * 
-	 */
-	public void writeOn(ResultSet rset) throws SQLException;
 	
 	/**
 	 * 

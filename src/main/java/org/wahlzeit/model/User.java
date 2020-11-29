@@ -25,6 +25,7 @@ import java.net.*;
 import java.sql.*;
 
 import org.wahlzeit.services.*;
+import org.wahlzeit.services.persistence.Persistent;
 import org.wahlzeit.utils.*;
 
 /**
