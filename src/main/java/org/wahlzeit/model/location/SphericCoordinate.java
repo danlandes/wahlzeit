@@ -4,8 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SphericCoordinate implements ICoordinate {
-    public static String TABLENAME_PHI = "location_PHI";
-    public static String TABLENAME_THETA = "location_THETA";
+    public static String TABLENAME_PHI = "location_phi";
+    public static String TABLENAME_THETA = "location_theta";
     public static String TABLENAME_RADIUS = "location_radius";
 
     private double phi; // longitude: Angle between x-axis and vertical line between point and the area between x- and y-axis
