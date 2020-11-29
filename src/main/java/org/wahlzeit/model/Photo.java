@@ -133,12 +133,7 @@ public class Photo extends DataObject {
 
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
 
-		location = new Location(
-				new CartesianCoordinate(
-				rset.getDouble(CartesianCoordinate.TABLENAME_X),
-				rset.getDouble(CartesianCoordinate.TABLENAME_Y),
-				rset.getDouble(CartesianCoordinate.TABLENAME_Z))
-		);
+		location.readFrom(rset);
 	}
 
 	public void writeOn(ResultSet rset) throws SQLException {
@@ -156,9 +151,7 @@ public class Photo extends DataObject {
 		rset.updateInt("praise_sum", praiseSum);
 		rset.updateInt("no_votes", noVotes);
 		rset.updateLong("creation_time", creationTime);
-		rset.updateDouble(CartesianCoordinate.TABLENAME_X, location.getCoordinate().getX());
-		rset.updateDouble(CartesianCoordinate.TABLENAME_Y, location.getCoordinate().getY());
-		rset.updateDouble(CartesianCoordinate.TABLENAME_Z, location.getCoordinate().getZ());
+		location.writeOn(rset);
 	}
 
 	public void writeId(PreparedStatement stmt, int pos) throws SQLException {
