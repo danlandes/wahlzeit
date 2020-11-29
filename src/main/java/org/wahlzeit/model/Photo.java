@@ -76,7 +76,7 @@ public class Photo extends DataObject {
 
 	protected long creationTime = System.currentTimeMillis();
 
-	protected Location location = new Location(0, 0, 0);
+	protected Location location = new Location(new CartesianCoordinate(0, 0, 0));
 
 	public Photo() {
 		id = PhotoId.getNextId();
@@ -134,9 +134,11 @@ public class Photo extends DataObject {
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
 
 		location = new Location(
+				new CartesianCoordinate(
 				rset.getDouble(CartesianCoordinate.TABLENAME_X),
 				rset.getDouble(CartesianCoordinate.TABLENAME_Y),
-				rset.getDouble(CartesianCoordinate.TABLENAME_Z));
+				rset.getDouble(CartesianCoordinate.TABLENAME_Z))
+		);
 	}
 
 	public void writeOn(ResultSet rset) throws SQLException {

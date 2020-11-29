@@ -1,17 +1,23 @@
 package org.wahlzeit.model.location;
 
-public class Location {
-    private CartesianCoordinate coordinate;
+import java.sql.ResultSet;
 
-    public Location(final double x, final double y, final double z) {
-        this.coordinate = new CartesianCoordinate(x, y, z);
+public class Location {
+    private ICoordinate coordinate;
+
+    public Location(CartesianCoordinate coordinate) {
+        this.coordinate = coordinate;
     }
 
-    public CartesianCoordinate getCoordinate() {
+    public ICoordinate getCoordinate() {
         return coordinate;
     }
 
     public void setCoordinate(final CartesianCoordinate coordinate) {
         this.coordinate = coordinate;
+    }
+
+    public void writeOn(ResultSet resultSet) {
+
     }
 }
