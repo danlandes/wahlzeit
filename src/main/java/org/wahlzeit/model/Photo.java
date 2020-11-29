@@ -23,7 +23,7 @@ package org.wahlzeit.model;
 import java.sql.*;
 import java.net.*;
 
-import org.wahlzeit.model.location.Coordinate;
+import org.wahlzeit.model.location.CartesianCoordinate;
 import org.wahlzeit.model.location.Location;
 import org.wahlzeit.services.*;
 import org.wahlzeit.utils.*;
@@ -134,9 +134,9 @@ public class Photo extends DataObject {
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
 
 		location = new Location(
-				rset.getDouble(Coordinate.TABLENAME_X),
-				rset.getDouble(Coordinate.TABLENAME_Y),
-				rset.getDouble(Coordinate.TABLENAME_Z));
+				rset.getDouble(CartesianCoordinate.TABLENAME_X),
+				rset.getDouble(CartesianCoordinate.TABLENAME_Y),
+				rset.getDouble(CartesianCoordinate.TABLENAME_Z));
 	}
 
 	public void writeOn(ResultSet rset) throws SQLException {
@@ -154,9 +154,9 @@ public class Photo extends DataObject {
 		rset.updateInt("praise_sum", praiseSum);
 		rset.updateInt("no_votes", noVotes);
 		rset.updateLong("creation_time", creationTime);
-		rset.updateDouble(Coordinate.TABLENAME_X, location.getCoordinate().getX());
-		rset.updateDouble(Coordinate.TABLENAME_Y, location.getCoordinate().getY());
-		rset.updateDouble(Coordinate.TABLENAME_Z, location.getCoordinate().getZ());
+		rset.updateDouble(CartesianCoordinate.TABLENAME_X, location.getCoordinate().getX());
+		rset.updateDouble(CartesianCoordinate.TABLENAME_Y, location.getCoordinate().getY());
+		rset.updateDouble(CartesianCoordinate.TABLENAME_Z, location.getCoordinate().getZ());
 	}
 
 	public void writeId(PreparedStatement stmt, int pos) throws SQLException {
