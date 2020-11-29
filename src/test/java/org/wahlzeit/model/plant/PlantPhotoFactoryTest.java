@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 import static org.junit.Assert.assertTrue;
 
-public class PlantPhotoTest {
+public class PlantPhotoFactoryTest {
 
     @Test
     public void factoryInstanceShouldBePlantFactory() {
