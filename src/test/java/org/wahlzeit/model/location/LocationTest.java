@@ -9,8 +9,9 @@ public class LocationTest {
     @Test
     public void creationOfLocation() {
         final Location location = new Location(new CartesianCoordinate(1, 2, 3));
-        assertEquals(1, location.getCoordinate().getX(), 0.0);
-        assertEquals(2, location.getCoordinate().getY(), 0.0);
-        assertEquals(3, location.getCoordinate().getZ(), 0.0);
+        final CartesianCoordinate c = (CartesianCoordinate) location.getCoordinate();
+        assertEquals(1, c.getX(), 0.0);
+        assertEquals(2, c.getY(), 0.0);
+        assertEquals(3, c.getZ(), 0.0);
     }
 }
