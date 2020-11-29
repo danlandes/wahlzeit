@@ -15,22 +15,6 @@ public class PlantPhoto extends Photo {
         super(myId);
     }
 
-    public String getSpeciesEN() {
-        return speciesEN;
-    }
-
-    public void setSpeciesEN(final String speciesEN) {
-        this.speciesEN = speciesEN;
-    }
-
-    public String getSpeciesLatin() {
-        return speciesLatin;
-    }
-
-    public void setSpeciesLatin(final String speciesLatin) {
-        this.speciesLatin = speciesLatin;
-    }
-
     public PlantPhoto(final ResultSet resultSet) throws SQLException {
         super(resultSet);
         readFrom(resultSet);
@@ -48,5 +32,21 @@ public class PlantPhoto extends Photo {
         super.writeOn(rset);
         rset.updateString(PlantPhotoLabels.PLANT_SPECIES_LATIN.label, speciesLatin);
         rset.updateString(PlantPhotoLabels.PLANT_SPECIES_EN.label, speciesEN);
+    }
+
+    public String getSpeciesEN() {
+        return speciesEN;
+    }
+
+    public void setSpeciesEN(final String speciesEN) {
+        this.speciesEN = speciesEN;
+    }
+
+    public String getSpeciesLatin() {
+        return speciesLatin;
+    }
+
+    public void setSpeciesLatin(final String speciesLatin) {
+        this.speciesLatin = speciesLatin;
     }
 }
