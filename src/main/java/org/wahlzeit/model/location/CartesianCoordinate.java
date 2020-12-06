@@ -3,14 +3,14 @@ package org.wahlzeit.model.location;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CartesianCoordinate implements ICoordinate {
+public class CartesianCoordinate extends AbstractCoordinate {
     public static String TABLENAME_X = "location_x";
     public static String TABLENAME_Y = "location_y";
     public static String TABLENAME_Z = "location_z";
     private double x;
     private double y;
     private double z;
-    private static final double toleratedDeviation = 5;
+
 
     public CartesianCoordinate(final double x, final double y, final double z) {
         this.x = x;
@@ -36,33 +36,8 @@ public class CartesianCoordinate implements ICoordinate {
     }
 
     @Override
-    public boolean equals(final Object other) {
-        if (other == null || getClass() != other.getClass()) return false;
-        final CartesianCoordinate that = (CartesianCoordinate) other;
-       return isEqual(that);
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        temp = Double.doubleToLongBits(x);
-        result = (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(y);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(z);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
-    }
-
-    @Override
     public double getCartesianDistance(final ICoordinate coordinate) {
         return this.getDistance(coordinate.asCartesianCoordinate());
-    }
-
-    @Override
-    public double getCentralAngle(final ICoordinate coordinate) {
-        return this.asSphericCoordinate().getCentralAngle(coordinate);
     }
 
     @Override
@@ -83,13 +58,6 @@ public class CartesianCoordinate implements ICoordinate {
     }
 
     @Override
-    public boolean isEqual(final ICoordinate coordinate) {
-        if (this == coordinate) return true;
-        // a location is equal when the distance between them is lower than the tolerated deviation
-        return this.getCartesianDistance(coordinate.asCartesianCoordinate()) <= toleratedDeviation;
-    }
-
-    @Override
     public void readFrom(final ResultSet rset) throws SQLException {
         this.x = rset.getDouble(CartesianCoordinate.TABLENAME_X);
         this.y = rset.getDouble(CartesianCoordinate.TABLENAME_Y);
@@ -101,5 +69,18 @@ public class CartesianCoordinate implements ICoordinate {
         rset.updateDouble(CartesianCoordinate.TABLENAME_X, this.getX());
         rset.updateDouble(CartesianCoordinate.TABLENAME_Y, this.getY());
         rset.updateDouble(CartesianCoordinate.TABLENAME_Z, this.getZ());
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(x);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(y);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(z);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 }

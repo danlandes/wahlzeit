@@ -3,7 +3,8 @@ package org.wahlzeit.model.location;
 import org.wahlzeit.services.persistence.SimplePersistence;
 
 public interface ICoordinate
-        extends Equality, CartesianFeatures, SphericFeatures, ConvertibleToCartesianCoordinate, ConvertibleToSphericCoordinate, SimplePersistence {
+        extends Equality, CartesianFeatures, SphericFeatures, ConvertibleToCartesianCoordinate,
+        ConvertibleToSphericCoordinate, SimplePersistence {
 }
 
 interface Equality {

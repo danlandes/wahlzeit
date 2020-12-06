@@ -3,7 +3,7 @@ package org.wahlzeit.model.location;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SphericCoordinate implements ICoordinate {
+public class SphericCoordinate extends AbstractCoordinate {
     public static String TABLENAME_PHI = "location_phi";
     public static String TABLENAME_THETA = "location_theta";
     public static String TABLENAME_RADIUS = "location_radius";
@@ -25,16 +25,6 @@ public class SphericCoordinate implements ICoordinate {
     public double getLongitude() { return phi; }
 
     @Override
-    public boolean isEqual(final ICoordinate coordinate) {
-        return this.asCartesianCoordinate().isEqual(coordinate);
-    }
-
-    @Override
-    public double getCartesianDistance(final ICoordinate coordinate) {
-        return this.asCartesianCoordinate().getCartesianDistance(coordinate);
-    }
-
-    @Override
     public double getCentralAngle(final ICoordinate coordinate) {
         final SphericCoordinate first = this;
         final SphericCoordinate second = coordinate.asSphericCoordinate();
@@ -42,10 +32,6 @@ public class SphericCoordinate implements ICoordinate {
 
         return   Math.acos(Math.sin(first.getLatitude()) * Math.sin(second.getLatitude())
                 + Math.cos(first.getLatitude()) * Math.cos(second.getLatitude()) * Math.cos(Math.abs(deltaLongitude)));
-    }
-
-    private double sinSqr(double value) {
-        return Math.pow(Math.sin(value), 2);
     }
 
     @Override
@@ -76,5 +62,18 @@ public class SphericCoordinate implements ICoordinate {
         rset.updateDouble(SphericCoordinate.TABLENAME_THETA, this.getTheta());
         rset.updateDouble(SphericCoordinate.TABLENAME_RADIUS, this.getRadius());
         rset.updateDouble(SphericCoordinate.TABLENAME_RADIUS, this.getRadius());
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(phi);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(theta);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(radius);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 }
