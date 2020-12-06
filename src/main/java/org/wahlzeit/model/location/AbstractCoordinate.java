@@ -19,7 +19,7 @@ abstract class AbstractCoordinate implements ICoordinate {
 
     @Override
     public double getCartesianDistance(final ICoordinate coordinate) {
-        return coordinate.asCartesianCoordinate().getCartesianDistance(coordinate);
+        return this.asCartesianCoordinate().getCartesianDistance(coordinate);
     }
 
     @Override

@@ -76,4 +76,13 @@ public class SphericCoordinate extends AbstractCoordinate {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "SphericCoordinate{" +
+                "phi=" + phi +
+                ", theta=" + theta +
+                ", radius=" + radius +
+                '}';
+    }
 }
