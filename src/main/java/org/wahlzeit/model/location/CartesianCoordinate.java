@@ -48,7 +48,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
     @Override
     public SphericCoordinate asSphericCoordinate() {
         double r = sqrtSumOfSquaredXSquaredYSquaredZ();
-        double theta = Math.acos(z / sqrtSumOfSquaredXSquaredYSquaredZ());
+        double theta = r == 0 ? Double.MAX_VALUE: Math.acos(z / r);
         double phi = 1 / Math.tan(y / x);
         return new SphericCoordinate(phi, theta, r);
     }
