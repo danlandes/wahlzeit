@@ -26,4 +26,18 @@ abstract class AbstractCoordinate implements ICoordinate {
     public double getCentralAngle(final ICoordinate coordinate) {
         return coordinate.asSphericCoordinate().getCentralAngle(coordinate);
     }
+
+    @Override
+    public int hashCode() {
+        final CartesianCoordinate self = this.asCartesianCoordinate();
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(self.getX());
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(self.getY());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(self.getY());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }

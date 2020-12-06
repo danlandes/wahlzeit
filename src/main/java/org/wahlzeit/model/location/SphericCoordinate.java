@@ -65,19 +65,6 @@ public class SphericCoordinate extends AbstractCoordinate {
     }
 
     @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        temp = Double.doubleToLongBits(phi);
-        result = (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(theta);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(radius);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "SphericCoordinate{" +
                 "phi=" + phi +
