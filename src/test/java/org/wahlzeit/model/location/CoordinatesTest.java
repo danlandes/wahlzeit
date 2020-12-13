@@ -2,6 +2,7 @@ package org.wahlzeit.model.location;
 
 import org.junit.Test;
 
+import static java.lang.Double.NaN;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -41,5 +42,40 @@ public class CoordinatesTest {
         final CartesianCoordinate sameSpotFirstFloor = new CartesianCoordinate(1000, 3000, 0);
         final CartesianCoordinate sameSpoSecondFloor = new CartesianCoordinate(1000, 3200, 200);
         assertEquals(282, sameSpoSecondFloor.getCartesianDistance(sameSpotFirstFloor), 1.0);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void createCoordinateShouldFail1() {
+        new CartesianCoordinate(NaN, 3000, 0);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void createCoordinateShouldFail2() {
+        new CartesianCoordinate(0, NaN, 0);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void createCoordinateShouldFail3() {
+        new CartesianCoordinate(0, 0, NaN);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void createCoordinateShouldFail4() {
+        new SphericCoordinate(NaN, 3000, 0);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void createCoordinateShouldFail5() {
+        new SphericCoordinate(0, NaN, 0);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void createCoordinateShouldFail6() {
+        new SphericCoordinate(0, 0, NaN);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void convertingToSphericShouldFail() {
+        new CartesianCoordinate(0, 0, 0).asSphericCoordinate();
     }
 }
