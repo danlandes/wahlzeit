@@ -6,28 +6,29 @@ public class AssertionUtils {
 
     protected static void assertSphericCoordinateIsValid(final ICoordinate coordinate) {
         assertNotNull(coordinate, "null is not a valid SphericCoordinate!");
-        if(!isSphericCoordinate(coordinate)) {
+        if (!isSphericCoordinate(coordinate)) {
             throw new IllegalStateException("Coordinate should be SphericCoordinate");
         }
     }
 
     protected static void assertCartesianCoordinateIsValid(final ICoordinate coordinate) {
         assertNotNull(coordinate, "null is not a valid CartesianCoordinate!");
-        if(!isCartesianCoordinate(coordinate)) {
+        if (!isCartesianCoordinate(coordinate)) {
             throw new IllegalStateException("Coordinate should be CartesianCoordinate");
         }
     }
 
     protected static void assertNotNull(final Object coordinate, String message) {
-        if(coordinate == null) {
+        if (coordinate == null) {
             throw new IllegalArgumentException(message);
         }
     }
 
     protected static void assertCoordinateIsSupportedSubtype(ICoordinate coordinate) {
-        if(!(isCartesianCoordinate(coordinate)) || !(isSphericCoordinate(coordinate))) {
-            throw new IllegalStateException("You introduced a new CoordinateClass that is currently not supported!");
+        if (isCartesianCoordinate(coordinate) || isSphericCoordinate(coordinate)) {
+            return;
         }
+        throw new IllegalStateException("You introduced a new CoordinateClass that is currently not supported!");
     }
 
     private static boolean isCartesianCoordinate(final ICoordinate coordinate) {
@@ -52,8 +53,8 @@ public class AssertionUtils {
 
     protected static void isValidCoordinateArgument(double number) {
         try {
-        assertNotInfinity(number);
-        assertValidNumber(number);
+            assertNotInfinity(number);
+            assertValidNumber(number);
         } catch (Exception e) {
             throw new IllegalStateException("Argument for Coordinate not valid, cause: " + e.getMessage());
         }
@@ -64,7 +65,7 @@ public class AssertionUtils {
     }
 
     protected static void assertShouldNoZero(double value) {
-        if(value == 0) {
+        if (value == 0) {
             throw new IllegalStateException("Value should not be zero!");
         }
     }
