@@ -14,4 +14,17 @@ public class LocationTest {
         assertEquals(2, c.getY(), 0.0);
         assertEquals(3, c.getZ(), 0.0);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void creationOfLocationShouldFail1() {
+        final SphericCoordinate coordinate = null;
+        new Location(coordinate);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void creationOfLocationShouldFail2() {
+        final CartesianCoordinate coordinate = null;
+        new Location(coordinate);
+    }
+
 }

@@ -20,6 +20,7 @@ public class Location implements SimplePersistence {
     }
 
     public Location(SphericCoordinate coordinate) {
+        assertNotNull(coordinate, "Coordinate should not be null!");
         this.coordinate = coordinate;
     }
 
