@@ -3,6 +3,8 @@ package org.wahlzeit.model.location;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static org.wahlzeit.model.location.AssertionUtils.assertValidCoordinateArguments;
+
 public class SphericCoordinate extends AbstractCoordinate {
     public static String TABLENAME_PHI = "location_phi";
     public static String TABLENAME_THETA = "location_theta";
@@ -13,6 +15,7 @@ public class SphericCoordinate extends AbstractCoordinate {
     private double radius; // Distance between centre of sphere and point (usually radius)
 
     public SphericCoordinate(final double phi, final double theta, final double radius) {
+        assertValidCoordinateArguments(phi, theta, radius);
         this.phi = phi;
         this.theta = theta;
         this.radius = radius;
