@@ -28,7 +28,7 @@ public class AssertionUtils {
         if (isCartesianCoordinate(coordinate) || isSphericCoordinate(coordinate)) {
             return;
         }
-        throw new IllegalStateException("You introduced a new CoordinateClass that is currently not supported!");
+        throw new IllegalStateException("You introduced a new CoordinateClass that is currently not supported by database!");
     }
 
     private static boolean isCartesianCoordinate(final ICoordinate coordinate) {

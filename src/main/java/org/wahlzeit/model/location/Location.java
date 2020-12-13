@@ -14,22 +14,20 @@ import static org.wahlzeit.model.location.AssertionUtils.assertSphericCoordinate
 public class Location implements SimplePersistence {
     private ICoordinate coordinate;
 
-    public Location(CartesianCoordinate coordinate) {
+    public Location(AbstractCoordinate coordinate) {
         assertNotNull(coordinate, "Coordinate should not be null!");
+        assertCoordinateIsSupportedSubtype(coordinate);
         this.coordinate = coordinate;
     }
 
-    public Location(SphericCoordinate coordinate) {
-        assertNotNull(coordinate, "Coordinate should not be null!");
-        this.coordinate = coordinate;
-    }
 
     public ICoordinate getCoordinate() {
         return coordinate;
     }
 
-    public void setCoordinate(final CartesianCoordinate coordinate) {
+    public void setCoordinate(final AbstractCoordinate coordinate) {
         assertNotNull(coordinate, "Coordinate should not be null!");
+        assertCoordinateIsSupportedSubtype(coordinate);
         this.coordinate = coordinate;
     }
 
