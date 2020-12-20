@@ -1,6 +1,7 @@
 package org.wahlzeit.model.location;
 
 import org.junit.Test;
+import org.wahlzeit.model.location.errors.CoordinateStateNotValid;
 
 import static java.lang.Double.NaN;
 import static org.junit.Assert.assertEquals;
@@ -44,32 +45,32 @@ public class CoordinatesTest {
         assertEquals(282, sameSpoSecondFloor.getCartesianDistance(sameSpotFirstFloor), 1.0);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = CoordinateStateNotValid.CoordinateCreationFailed.OfInstanceCartesian.class)
     public void createCoordinateShouldFail1() {
         new CartesianCoordinate(NaN, 3000, 0);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = CoordinateStateNotValid.CoordinateCreationFailed.OfInstanceCartesian.class)
     public void createCoordinateShouldFail2() {
         new CartesianCoordinate(0, NaN, 0);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = CoordinateStateNotValid.CoordinateCreationFailed.OfInstanceCartesian.class)
     public void createCoordinateShouldFail3() {
         new CartesianCoordinate(0, 0, NaN);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = CoordinateStateNotValid.CoordinateCreationFailed.OfInstanceSpheric.class)
     public void createCoordinateShouldFail4() {
         new SphericCoordinate(NaN, 3000, 0);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = CoordinateStateNotValid.CoordinateCreationFailed.OfInstanceSpheric.class)
     public void createCoordinateShouldFail5() {
         new SphericCoordinate(0, NaN, 0);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = CoordinateStateNotValid.CoordinateCreationFailed.OfInstanceSpheric.class)
     public void createCoordinateShouldFail6() {
         new SphericCoordinate(0, 0, NaN);
     }

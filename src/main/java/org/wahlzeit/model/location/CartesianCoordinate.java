@@ -1,12 +1,15 @@
 package org.wahlzeit.model.location;
 
+import org.wahlzeit.model.location.errors.CoordinateStateNotValid;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static org.wahlzeit.model.location.AssertionUtils.assertShouldBePositive;
-import static org.wahlzeit.model.location.AssertionUtils.assertValidCoordinateArguments;
+import static org.wahlzeit.model.location.AssertionUtils.assertArgumentsOfCartesianCoordinate;
 import static org.wahlzeit.model.location.AssertionUtils.assertNotNull;
+import static org.wahlzeit.model.location.AssertionUtils.assertShouldBePositive;
 import static org.wahlzeit.model.location.AssertionUtils.assertShouldNoZero;
+import static org.wahlzeit.model.location.AssertionUtils.assertValidCoordinateArguments;
 
 public class CartesianCoordinate extends AbstractCoordinate {
     public static String TABLENAME_X = "location_x";
@@ -18,7 +21,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 
     public CartesianCoordinate(final double x, final double y, final double z) {
-        assertValidCoordinateArguments(x, y, z);
+        assertArgumentsOfCartesianCoordinate(x,y,z);
         this.x = x;
         this.y = y;
         this.z = z;
@@ -27,9 +30,11 @@ public class CartesianCoordinate extends AbstractCoordinate {
     public double getX() {
         return x;
     }
+
     public double getY() {
         return y;
     }
+
     public double getZ() {
         return z;
     }
@@ -58,7 +63,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
     public SphericCoordinate asSphericCoordinate() {
         double r = sqrtSumOfSquaredXSquaredYSquaredZ();
         assertShouldNoZero(r);
-        double theta = r <= 0.001 && r > 0? Double.MAX_VALUE: Math.acos(z / r);
+        double theta = r <= 0.001 && r > 0 ? Double.MAX_VALUE : Math.acos(z / r);
         assertShouldNoZero(x);
         double phi = 1 / Math.tan(y / x);
         return new SphericCoordinate(phi, theta, r);
@@ -74,7 +79,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
         this.x = rset.getDouble(CartesianCoordinate.TABLENAME_X);
         this.y = rset.getDouble(CartesianCoordinate.TABLENAME_Y);
         this.z = rset.getDouble(CartesianCoordinate.TABLENAME_Z);
-        assertValidCoordinateArguments(x,y,z);
+        assertValidCoordinateArguments(x, y, z);
     }
 
     @Override

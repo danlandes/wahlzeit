@@ -1,5 +1,6 @@
 package org.wahlzeit.model.location;
 
+import org.wahlzeit.model.location.errors.CoordinateStateNotValid;
 import org.wahlzeit.model.location.errors.LocationStateNotValid;
 
 import java.util.Arrays;
@@ -64,12 +65,28 @@ public class AssertionUtils {
             assertNotInfinity(number);
             assertValidNumber(number);
         } catch (Exception e) {
-            throw new IllegalStateException("Argument for Coordinate not valid, cause: " + e.getMessage());
+            throw new CoordinateStateNotValid.CoordinateCreationFailed();
         }
     }
 
     protected static void assertValidCoordinateArguments(double... arguments) {
         Arrays.stream(arguments).forEach(AssertionUtils::isValidCoordinateArgument);
+    }
+
+    protected static void assertArgumentsOfCartesianCoordinate(final double x, final double y, final double z) {
+        try {
+            assertValidCoordinateArguments(x, y, z);
+        } catch (CoordinateStateNotValid.CoordinateCreationFailed e) {
+            throw new CoordinateStateNotValid.CoordinateCreationFailed.OfInstanceCartesian();
+        }
+    }
+
+    protected static void assertArgumentsOfSphericCoordinate(final double phi, final double theta, final double radius) {
+        try {
+            assertValidCoordinateArguments(phi, theta, radius);
+        } catch (CoordinateStateNotValid.CoordinateCreationFailed e) {
+            throw new CoordinateStateNotValid.CoordinateCreationFailed.OfInstanceSpheric();
+        }
     }
 
     protected static void assertShouldNoZero(double value) {
