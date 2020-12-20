@@ -8,13 +8,13 @@ import java.sql.SQLException;
 import static org.wahlzeit.model.location.AssertionUtils.assertArgumentsOfSphericCoordinate;
 import static org.wahlzeit.model.location.AssertionUtils.assertNotNull;
 import static org.wahlzeit.model.location.AssertionUtils.assertShouldBePositive;
-import static org.wahlzeit.model.location.AssertionUtils.assertValidCoordinateArguments;
 import static org.wahlzeit.model.location.AssertionUtils.assertValueIsIn360DegreeSpectrum;
 
 public class SphericCoordinate extends AbstractCoordinate {
     public static String TABLENAME_PHI = "location_phi";
     public static String TABLENAME_THETA = "location_theta";
     public static String TABLENAME_RADIUS = "location_radius";
+    public static SphericCoordinate DEFAULT = CartesianCoordinate.DEFAULT.asSphericCoordinate();
 
     private double phi; // longitude: Angle between x-axis and vertical line between point and the area between x- and y-axis
     private double theta; // latitude: the Angle between the Z-Axsis and the the given line between sphere centre and point (Polar Angle)
@@ -27,11 +27,25 @@ public class SphericCoordinate extends AbstractCoordinate {
         this.radius = radius;
     }
 
-    public double getPhi() { return phi; }
-    public double getTheta() { return theta; }
-    public double getRadius() { return radius; }
-    public double getLatitude() { return theta; }
-    public double getLongitude() { return phi; }
+    public double getPhi() {
+        return phi;
+    }
+
+    public double getTheta() {
+        return theta;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public double getLatitude() {
+        return theta;
+    }
+
+    public double getLongitude() {
+        return phi;
+    }
 
     @Override
     public double getCentralAngle(final ICoordinate coordinate) {
@@ -60,7 +74,7 @@ public class SphericCoordinate extends AbstractCoordinate {
     }
 
     @Override
-    public  SphericCoordinate asSphericCoordinate() {
+    public SphericCoordinate asSphericCoordinate() {
         return this;
     }
 

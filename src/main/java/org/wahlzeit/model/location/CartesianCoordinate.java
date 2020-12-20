@@ -15,6 +15,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
     public static String TABLENAME_X = "location_x";
     public static String TABLENAME_Y = "location_y";
     public static String TABLENAME_Z = "location_z";
+    public static CartesianCoordinate DEFAULT = new CartesianCoordinate(1,1,1);
     private double x;
     private double y;
     private double z;

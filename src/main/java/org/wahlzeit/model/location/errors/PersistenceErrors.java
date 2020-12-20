@@ -11,4 +11,8 @@ public class PersistenceErrors extends SQLException {
         public static class OfTreePhoto extends ResultSetIsNull {}
         public static class OfFlowerPhoto extends ResultSetIsNull {}
     }
+
+    public static class noRecover extends SQLException {
+        public static class OfPhoto extends noRecover {}
+    }
 }

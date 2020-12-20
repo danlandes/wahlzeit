@@ -25,7 +25,9 @@ import java.net.*;
 
 import org.wahlzeit.model.location.CartesianCoordinate;
 import org.wahlzeit.model.location.Location;
-import org.wahlzeit.model.location.errors.LocationStateNotValid;
+import org.wahlzeit.model.location.SphericCoordinate;
+import org.wahlzeit.model.location.errors.CoordinateStateNotValid;
+import org.wahlzeit.model.location.errors.PersistenceErrors;
 import org.wahlzeit.services.*;
 import org.wahlzeit.utils.*;
 
@@ -134,7 +136,15 @@ public class Photo extends DataObject {
 
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
 
-		location.readFrom(rset);
+		try {
+			location.readFrom(rset);
+		} catch (CoordinateStateNotValid.CoordinateCreationFailed.OfInstanceCartesian e) {
+			location.setCoordinate(CartesianCoordinate.DEFAULT);
+		} catch (CoordinateStateNotValid.CoordinateCreationFailed.OfInstanceSpheric e) {
+			location.setCoordinate(SphericCoordinate.DEFAULT);
+		} catch (PersistenceErrors.ResultSetIsNull e) {
+			throw new PersistenceErrors.noRecover.OfPhoto();
+		}
 	}
 
 	public void writeOn(ResultSet rset) throws SQLException {
@@ -152,7 +162,11 @@ public class Photo extends DataObject {
 		rset.updateInt("praise_sum", praiseSum);
 		rset.updateInt("no_votes", noVotes);
 		rset.updateLong("creation_time", creationTime);
-		location.writeOn(rset);
+		try {
+			location.writeOn(rset);
+		}  catch (PersistenceErrors.ResultSetIsNull e) {
+			throw new PersistenceErrors.noRecover.OfPhoto();
+		}
 	}
 
 	public void writeId(PreparedStatement stmt, int pos) throws SQLException {
