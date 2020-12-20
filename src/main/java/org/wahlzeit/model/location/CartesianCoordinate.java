@@ -3,6 +3,7 @@ package org.wahlzeit.model.location;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static org.wahlzeit.model.location.AssertionUtils.assertShouldBePositive;
 import static org.wahlzeit.model.location.AssertionUtils.assertValidCoordinateArguments;
 import static org.wahlzeit.model.location.AssertionUtils.assertNotNull;
 import static org.wahlzeit.model.location.AssertionUtils.assertShouldNoZero;
@@ -42,7 +43,10 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
     @Override
     public double getCartesianDistance(final ICoordinate coordinate) {
-        return this.getDistance(coordinate.asCartesianCoordinate());
+        assertNotNull(coordinate, "Can not calculate distance from null");
+        final double distance = this.getDistance(coordinate.asCartesianCoordinate());
+        assertShouldBePositive(distance);
+        return distance;
     }
 
     @Override

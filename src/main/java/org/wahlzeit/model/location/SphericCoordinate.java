@@ -3,7 +3,10 @@ package org.wahlzeit.model.location;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static org.wahlzeit.model.location.AssertionUtils.assertNotNull;
+import static org.wahlzeit.model.location.AssertionUtils.assertShouldBePositive;
 import static org.wahlzeit.model.location.AssertionUtils.assertValidCoordinateArguments;
+import static org.wahlzeit.model.location.AssertionUtils.assertValueIsIn360DegreeSpectrum;
 
 public class SphericCoordinate extends AbstractCoordinate {
     public static String TABLENAME_PHI = "location_phi";
@@ -16,6 +19,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 
     public SphericCoordinate(final double phi, final double theta, final double radius) {
         assertValidCoordinateArguments(phi, theta, radius);
+        assertShouldBePositive(radius);
         this.phi = phi;
         this.theta = theta;
         this.radius = radius;
@@ -29,22 +33,27 @@ public class SphericCoordinate extends AbstractCoordinate {
 
     @Override
     public double getCentralAngle(final ICoordinate coordinate) {
+        assertNotNull(coordinate, "Can not calculate central angle of null");
         final SphericCoordinate first = this;
         final SphericCoordinate second = coordinate.asSphericCoordinate();
         double deltaLongitude = Math.abs(first.getLongitude() - second.getLongitude());
 
-        return   Math.acos(Math.sin(first.getLatitude()) * Math.sin(second.getLatitude())
+        final double result = Math.acos(Math.sin(first.getLatitude()) * Math.sin(second.getLatitude())
                 + Math.cos(first.getLatitude()) * Math.cos(second.getLatitude()) * Math.cos(Math.abs(deltaLongitude)));
+        assertValueIsIn360DegreeSpectrum(result);
+        return result;
     }
 
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
+        assertShouldBePositive(radius);
         double x = rCosTheta() * Math.cos(phi);
         double y = rCosTheta() * Math.sin(phi);
         return new CartesianCoordinate(x, y, rCosTheta());
     }
 
     private double rCosTheta() {
+        assertShouldBePositive(radius);
         return radius * Math.cos(theta);
     }
 
@@ -55,6 +64,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 
     @Override
     public void readFrom(final ResultSet rset) throws SQLException {
+        assertNotNull(rset, "rset should not be null");
         this.theta = rset.getDouble(SphericCoordinate.TABLENAME_THETA);
         this.radius = rset.getDouble(SphericCoordinate.TABLENAME_RADIUS);
         this.phi = rset.getDouble(SphericCoordinate.TABLENAME_PHI);
@@ -62,6 +72,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 
     @Override
     public void writeOn(final ResultSet rset) throws SQLException {
+        assertNotNull(rset, "rset should not be null");
         rset.updateDouble(SphericCoordinate.TABLENAME_THETA, this.getTheta());
         rset.updateDouble(SphericCoordinate.TABLENAME_RADIUS, this.getRadius());
         rset.updateDouble(SphericCoordinate.TABLENAME_RADIUS, this.getRadius());

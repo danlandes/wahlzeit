@@ -69,4 +69,16 @@ public class AssertionUtils {
             throw new IllegalStateException("Value should not be zero!");
         }
     }
+
+    protected static void assertShouldBePositive(double value) {
+        if (value < 0) {
+            throw new IllegalStateException("Value should not be negativ!");
+        }
+    }
+
+    protected static void assertValueIsIn360DegreeSpectrum(double value) {
+        if (value < -360 || value > 360 ) {
+            throw new IllegalStateException("Value should be in 360 degree spectrum!");
+        }
+    }
 }
