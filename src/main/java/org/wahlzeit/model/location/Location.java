@@ -1,6 +1,7 @@
 package org.wahlzeit.model.location;
 
 import org.wahlzeit.model.location.errors.LocationStateNotValid;
+import org.wahlzeit.model.location.errors.PersistenceErrors;
 import org.wahlzeit.services.persistence.PersistenceUtils;
 import org.wahlzeit.services.persistence.SimplePersistence;
 
@@ -15,7 +16,7 @@ import static org.wahlzeit.model.location.AssertionUtils.assertSphericCoordinate
 public class Location implements SimplePersistence {
     private ICoordinate coordinate;
 
-    public Location(AbstractCoordinate coordinate) throws LocationStateNotValid.CoordinateWasNull, LocationStateNotValid.CoordinateIsNotSupportedSubtype {
+    public Location(AbstractCoordinate coordinate) {
         assertNotNull(coordinate, new LocationStateNotValid.CoordinateWasNull());
         assertCoordinateIsSupportedSubtype(coordinate);
         this.coordinate = coordinate;
@@ -26,7 +27,7 @@ public class Location implements SimplePersistence {
         return coordinate;
     }
 
-    public void setCoordinate(final AbstractCoordinate coordinate) throws LocationStateNotValid.CoordinateIsNotSupportedSubtype {
+    public void setCoordinate(final AbstractCoordinate coordinate) {
         assertNotNull(coordinate, "Coordinate should not be null!");
         assertCoordinateIsSupportedSubtype(coordinate);
         this.coordinate = coordinate;
@@ -34,13 +35,13 @@ public class Location implements SimplePersistence {
 
     @Override
     public void writeOn(ResultSet resultSet) throws SQLException {
-        assertNotNull(resultSet, "Can not writeOn resultSet: null");
+        assertNotNull(resultSet, new PersistenceErrors.ResultSetIsNull.OfLocation());
         this.coordinate.writeOn(resultSet);
     }
 
     @Override
     public void readFrom(final ResultSet rset) throws SQLException {
-        assertNotNull(rset, "Can not writeOn resultSet: null");
+        assertNotNull(rset, new PersistenceErrors.ResultSetIsNull.OfLocation());
         if (PersistenceUtils.assertColumnIsPresent(CartesianCoordinate.TABLENAME_X, rset)) {
             this.coordinate = new CartesianCoordinate(0, 0, 0);
             this.coordinate.readFrom(rset);

@@ -1,5 +1,7 @@
 package org.wahlzeit.model.location;
 
+import org.wahlzeit.model.location.errors.PersistenceErrors;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -73,7 +75,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
     @Override
     public void readFrom(final ResultSet rset) throws SQLException {
-        assertNotNull(rset, "ResultSet should not be null!");
+        assertNotNull(rset, new PersistenceErrors.ResultSetIsNull.OfCoordinateResult());
         this.x = rset.getDouble(CartesianCoordinate.TABLENAME_X);
         this.y = rset.getDouble(CartesianCoordinate.TABLENAME_Y);
         this.z = rset.getDouble(CartesianCoordinate.TABLENAME_Z);
@@ -82,7 +84,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
     @Override
     public void writeOn(final ResultSet rset) throws SQLException {
-        assertNotNull(rset, "ResultSet should not be null!");
+        assertNotNull(rset, new PersistenceErrors.ResultSetIsNull.OfCoordinateResult());
         rset.updateDouble(CartesianCoordinate.TABLENAME_X, this.getX());
         rset.updateDouble(CartesianCoordinate.TABLENAME_Y, this.getY());
         rset.updateDouble(CartesianCoordinate.TABLENAME_Z, this.getZ());

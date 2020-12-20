@@ -1,5 +1,7 @@
 package org.wahlzeit.model.location;
 
+import org.wahlzeit.model.location.errors.PersistenceErrors;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -64,7 +66,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 
     @Override
     public void readFrom(final ResultSet rset) throws SQLException {
-        assertNotNull(rset, "rset should not be null");
+        assertNotNull(rset, new PersistenceErrors.ResultSetIsNull.OfCoordinateResult());
         this.theta = rset.getDouble(SphericCoordinate.TABLENAME_THETA);
         this.radius = rset.getDouble(SphericCoordinate.TABLENAME_RADIUS);
         this.phi = rset.getDouble(SphericCoordinate.TABLENAME_PHI);
@@ -72,7 +74,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 
     @Override
     public void writeOn(final ResultSet rset) throws SQLException {
-        assertNotNull(rset, "rset should not be null");
+        assertNotNull(rset, new PersistenceErrors.ResultSetIsNull.OfCoordinateResult());
         rset.updateDouble(SphericCoordinate.TABLENAME_THETA, this.getTheta());
         rset.updateDouble(SphericCoordinate.TABLENAME_RADIUS, this.getRadius());
         rset.updateDouble(SphericCoordinate.TABLENAME_RADIUS, this.getRadius());
