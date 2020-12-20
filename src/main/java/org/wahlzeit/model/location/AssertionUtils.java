@@ -27,7 +27,7 @@ public class AssertionUtils {
         }
     }
 
-    protected static <T extends Throwable> void assertNotNull(final Object coordinate, T t) throws T {
+    public static <T extends Throwable> void assertNotNull(final Object coordinate, T t) throws T {
         if (coordinate == null) {
             throw t;
         }
