@@ -25,6 +25,7 @@ import java.net.*;
 
 import org.wahlzeit.model.location.CartesianCoordinate;
 import org.wahlzeit.model.location.Location;
+import org.wahlzeit.model.location.errors.LocationStateNotValid;
 import org.wahlzeit.services.*;
 import org.wahlzeit.utils.*;
 

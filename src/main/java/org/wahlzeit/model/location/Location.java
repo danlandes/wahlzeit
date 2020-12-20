@@ -1,5 +1,6 @@
 package org.wahlzeit.model.location;
 
+import org.wahlzeit.model.location.errors.LocationStateNotValid;
 import org.wahlzeit.services.persistence.PersistenceUtils;
 import org.wahlzeit.services.persistence.SimplePersistence;
 
@@ -14,8 +15,8 @@ import static org.wahlzeit.model.location.AssertionUtils.assertSphericCoordinate
 public class Location implements SimplePersistence {
     private ICoordinate coordinate;
 
-    public Location(AbstractCoordinate coordinate) {
-        assertNotNull(coordinate, "Coordinate should not be null!");
+    public Location(AbstractCoordinate coordinate) throws LocationStateNotValid.CoordinateWasNull, LocationStateNotValid.CoordinateIsNotSupportedSubtype {
+        assertNotNull(coordinate, new LocationStateNotValid.CoordinateWasNull());
         assertCoordinateIsSupportedSubtype(coordinate);
         this.coordinate = coordinate;
     }
@@ -25,7 +26,7 @@ public class Location implements SimplePersistence {
         return coordinate;
     }
 
-    public void setCoordinate(final AbstractCoordinate coordinate) {
+    public void setCoordinate(final AbstractCoordinate coordinate) throws LocationStateNotValid.CoordinateIsNotSupportedSubtype {
         assertNotNull(coordinate, "Coordinate should not be null!");
         assertCoordinateIsSupportedSubtype(coordinate);
         this.coordinate = coordinate;
@@ -44,12 +45,10 @@ public class Location implements SimplePersistence {
             this.coordinate = new CartesianCoordinate(0, 0, 0);
             this.coordinate.readFrom(rset);
             assertCartesianCoordinateIsValid(coordinate);
-            assertCoordinateIsSupportedSubtype(coordinate);
         } else if (PersistenceUtils.assertColumnIsPresent(SphericCoordinate.TABLENAME_PHI, rset)) {
             this.coordinate = new SphericCoordinate(0, 0, 0);
             this.coordinate.readFrom(rset);
             assertSphericCoordinateIsValid(coordinate);
-            assertCoordinateIsSupportedSubtype(coordinate);
         } else {
             throw new SQLException("Could not extract Location");
         }

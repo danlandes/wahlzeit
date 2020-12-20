@@ -1,5 +1,7 @@
 package org.wahlzeit.model.location;
 
+import org.wahlzeit.model.location.errors.LocationStateNotValid;
+
 import java.util.Arrays;
 
 public class AssertionUtils {
@@ -24,11 +26,17 @@ public class AssertionUtils {
         }
     }
 
-    protected static void assertCoordinateIsSupportedSubtype(ICoordinate coordinate) {
+    protected static <T extends Throwable> void assertNotNull(final Object coordinate, T t) throws T {
+        if (coordinate == null) {
+            throw t;
+        }
+    }
+
+    protected static void assertCoordinateIsSupportedSubtype(ICoordinate coordinate) throws LocationStateNotValid.CoordinateIsNotSupportedSubtype {
         if (isCartesianCoordinate(coordinate) || isSphericCoordinate(coordinate)) {
             return;
         }
-        throw new IllegalStateException("You introduced a new CoordinateClass that is currently not supported by database!");
+        throw new LocationStateNotValid.CoordinateIsNotSupportedSubtype();
     }
 
     private static boolean isCartesianCoordinate(final ICoordinate coordinate) {
@@ -77,7 +85,7 @@ public class AssertionUtils {
     }
 
     protected static void assertValueIsIn360DegreeSpectrum(double value) {
-        if (value < -360 || value > 360 ) {
+        if (value < -360 || value > 360) {
             throw new IllegalStateException("Value should be in 360 degree spectrum!");
         }
     }
