@@ -75,7 +75,7 @@ public class CoordinatesTest {
         new SphericCoordinate(0, 0, NaN);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = CoordinateStateNotValid.CalculationError.ZeroValueForbidden.class)
     public void convertingToSphericShouldFail() {
         new CartesianCoordinate(0, 0, 0).asSphericCoordinate();
     }

@@ -50,20 +50,20 @@ public class AssertionUtils {
 
     protected static void assertNotInfinity(double number) {
         if (Double.isInfinite(number)) {
-            throw new IllegalArgumentException("value should not be infinity");
+            throw new CoordinateStateNotValid.CalculationError.InfinityValueForbidden();
         }
     }
 
-    protected static void assertValidNumber(double number) {
+    protected static void asserIsNotNaN(double number) {
         if (Double.isNaN(number)) {
-            throw new IllegalArgumentException("value is not a number");
+            throw new CoordinateStateNotValid.CalculationError.NotAValue();
         }
     }
 
     protected static void isValidCoordinateArgument(double number) {
         try {
             assertNotInfinity(number);
-            assertValidNumber(number);
+            asserIsNotNaN(number);
         } catch (Exception e) {
             throw new CoordinateStateNotValid.CoordinateCreationFailed();
         }
@@ -89,15 +89,15 @@ public class AssertionUtils {
         }
     }
 
-    protected static void assertShouldNoZero(double value) {
+    protected static void assertShouldNotBeZero(double value) {
         if (value == 0) {
-            throw new IllegalStateException("Value should not be zero!");
+            throw new CoordinateStateNotValid.CalculationError.ZeroValueForbidden();
         }
     }
 
     protected static void assertShouldBePositive(double value) {
         if (value < 0) {
-            throw new IllegalStateException("Value should not be negativ!");
+            throw new CoordinateStateNotValid.CalculationError.NegativeValueForbidden();
         }
     }
 

@@ -1,14 +1,12 @@
 package org.wahlzeit.model.location;
 
-import org.wahlzeit.model.location.errors.CoordinateStateNotValid;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.wahlzeit.model.location.AssertionUtils.assertArgumentsOfCartesianCoordinate;
 import static org.wahlzeit.model.location.AssertionUtils.assertNotNull;
 import static org.wahlzeit.model.location.AssertionUtils.assertShouldBePositive;
-import static org.wahlzeit.model.location.AssertionUtils.assertShouldNoZero;
+import static org.wahlzeit.model.location.AssertionUtils.assertShouldNotBeZero;
 import static org.wahlzeit.model.location.AssertionUtils.assertValidCoordinateArguments;
 
 public class CartesianCoordinate extends AbstractCoordinate {
@@ -21,7 +19,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 
     public CartesianCoordinate(final double x, final double y, final double z) {
-        assertArgumentsOfCartesianCoordinate(x,y,z);
+        assertArgumentsOfCartesianCoordinate(x, y, z);
         this.x = x;
         this.y = y;
         this.z = z;
@@ -62,9 +60,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
     @Override
     public SphericCoordinate asSphericCoordinate() {
         double r = sqrtSumOfSquaredXSquaredYSquaredZ();
-        assertShouldNoZero(r);
+        assertShouldNotBeZero(r);
         double theta = r <= 0.001 && r > 0 ? Double.MAX_VALUE : Math.acos(z / r);
-        assertShouldNoZero(x);
+        assertShouldNotBeZero(x);
         double phi = 1 / Math.tan(y / x);
         return new SphericCoordinate(phi, theta, r);
     }
