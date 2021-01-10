@@ -6,24 +6,32 @@ import org.apache.commons.lang3.tuple.Triple;
 import java.util.HashMap;
 
 public class CoordinateCache {
-    private static final HashMap<Triple<Double, Double, Double>, CartesianCoordinate> store = new HashMap();
+    private static final HashMap<Triple<Double, Double, Double>, CartesianCoordinate> cartesians = new HashMap();
+    private static final HashMap<Triple<Double, Double, Double>, SphericCoordinate> spheric = new HashMap();
 
     public static CartesianCoordinate getForCartesian(final double x, final double y, final double z) {
         final Triple<Double, Double, Double> values = new ImmutableTriple(x, y, z);
-        final CartesianCoordinate result = CoordinateCache.store.get(values);
+        final CartesianCoordinate result = CoordinateCache.cartesians.get(values);
         if (result == null) {
             final CartesianCoordinate created = new CartesianCoordinate(values.getLeft(), values.getMiddle(), values.getRight());
-            CoordinateCache.store.put(values, created);
+            CoordinateCache.cartesians.put(values, created);
             return created;
         }
         return result;
     }
 
     public static SphericCoordinate getAsSpheric(final double phi, final double theta, final double radius) {
-        // this reuses the the conversion between spheric and cartesian of the cost of an unnecessary object creation
-        // could be improved by making the calculation betwenn spheric and cartesian reusable outside of coordinate
-        // for the moment I dont want to share this implementation freely so I go with this implementation
-        final CartesianCoordinate asCartesian = new SphericCoordinate(phi, theta, radius).asCartesianCoordinate();
-        return CoordinateCache.getForCartesian(asCartesian.getX(), asCartesian.getY(), asCartesian.getZ()).asSphericCoordinate();
+        return genericGet(CoordinateCache.spheric, phi, theta, radius);
+    }
+
+    private static SphericCoordinate genericGet(final HashMap spheric, final double left, final double middle, final double right) {
+        final Triple<Double, Double, Double> values = new ImmutableTriple(left, middle, right);
+        final SphericCoordinate result = CoordinateCache.spheric.get(values);
+        if (result == null) {
+            final SphericCoordinate created = new SphericCoordinate(values.getLeft(), values.getMiddle(), values.getRight());
+            CoordinateCache.spheric.put(values, created);
+            return created;
+        }
+        return result;
     }
 }

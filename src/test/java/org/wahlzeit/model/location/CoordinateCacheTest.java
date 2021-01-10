@@ -18,7 +18,6 @@ public class CoordinateCacheTest {
     public void shouldBeSameInstance2() {
         final SphericCoordinate first = CoordinateCache.getAsSpheric(1,1,1);
         final SphericCoordinate second = CoordinateCache.getAsSpheric(1,1,1);
-
         assertSame(first, second);
     }
 }

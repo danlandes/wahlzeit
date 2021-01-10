@@ -66,7 +66,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
         double theta = r <= 0.001 && r > 0 ? Double.MAX_VALUE : Math.acos(z / r);
         assertShouldNotBeZero(x);
         double phi = 1 / Math.tan(y / x);
-        return new SphericCoordinate(phi, theta, r);
+        return CoordinateCache.getAsSpheric(phi, theta, r);
     }
 
     private double sqrtSumOfSquaredXSquaredYSquaredZ() {

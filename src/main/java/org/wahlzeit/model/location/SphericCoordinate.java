@@ -65,7 +65,7 @@ public class SphericCoordinate extends AbstractCoordinate {
         assertShouldBePositive(radius);
         double x = rCosTheta() * Math.cos(phi);
         double y = rCosTheta() * Math.sin(phi);
-        return new CartesianCoordinate(x, y, rCosTheta());
+        return CoordinateCache.getForCartesian(x, y, rCosTheta());
     }
 
     private double rCosTheta() {
