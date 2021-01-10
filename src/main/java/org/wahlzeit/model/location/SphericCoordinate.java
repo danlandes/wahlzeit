@@ -16,9 +16,9 @@ public class SphericCoordinate extends AbstractCoordinate {
     public static String TABLENAME_RADIUS = "location_radius";
     public static SphericCoordinate DEFAULT = CartesianCoordinate.DEFAULT.asSphericCoordinate();
 
-    private double phi; // longitude: Angle between x-axis and vertical line between point and the area between x- and y-axis
-    private double theta; // latitude: the Angle between the Z-Axsis and the the given line between sphere centre and point (Polar Angle)
-    private double radius; // Distance between centre of sphere and point (usually radius)
+    private final double phi; // longitude: Angle between x-axis and vertical line between point and the area between x- and y-axis
+    private final double theta; // latitude: the Angle between the Z-Axsis and the the given line between sphere centre and point (Polar Angle)
+    private final double radius; // Distance between centre of sphere and point (usually radius)
 
     public SphericCoordinate(final double phi, final double theta, final double radius) {
         assertArgumentsOfSphericCoordinate(phi, theta, radius);
@@ -76,14 +76,6 @@ public class SphericCoordinate extends AbstractCoordinate {
     @Override
     public SphericCoordinate asSphericCoordinate() {
         return this;
-    }
-
-    @Override
-    public void readFrom(final ResultSet rset) throws SQLException {
-        assertNotNull(rset, new PersistenceErrors.ResultSetIsNull.OfCoordinateResult());
-        this.theta = rset.getDouble(SphericCoordinate.TABLENAME_THETA);
-        this.radius = rset.getDouble(SphericCoordinate.TABLENAME_RADIUS);
-        this.phi = rset.getDouble(SphericCoordinate.TABLENAME_PHI);
     }
 
     @Override

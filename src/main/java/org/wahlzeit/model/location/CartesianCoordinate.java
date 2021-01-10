@@ -9,16 +9,15 @@ import static org.wahlzeit.model.location.AssertionUtils.assertArgumentsOfCartes
 import static org.wahlzeit.model.location.AssertionUtils.assertNotNull;
 import static org.wahlzeit.model.location.AssertionUtils.assertShouldBePositive;
 import static org.wahlzeit.model.location.AssertionUtils.assertShouldNotBeZero;
-import static org.wahlzeit.model.location.AssertionUtils.assertValidCoordinateArguments;
 
 public class CartesianCoordinate extends AbstractCoordinate {
     public static String TABLENAME_X = "location_x";
     public static String TABLENAME_Y = "location_y";
     public static String TABLENAME_Z = "location_z";
-    public static CartesianCoordinate DEFAULT = new CartesianCoordinate(1,1,1);
-    private double x;
-    private double y;
-    private double z;
+    public static CartesianCoordinate DEFAULT = new CartesianCoordinate(1, 1, 1);
+    private final double x;
+    private final double y;
+    private final double z;
 
 
     public CartesianCoordinate(final double x, final double y, final double z) {
@@ -72,15 +71,6 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
     private double sqrtSumOfSquaredXSquaredYSquaredZ() {
         return Math.sqrt(x * x + y * y + z * z);
-    }
-
-    @Override
-    public void readFrom(final ResultSet rset) throws SQLException {
-        assertNotNull(rset, new PersistenceErrors.ResultSetIsNull.OfCoordinateResult());
-        this.x = rset.getDouble(CartesianCoordinate.TABLENAME_X);
-        this.y = rset.getDouble(CartesianCoordinate.TABLENAME_Y);
-        this.z = rset.getDouble(CartesianCoordinate.TABLENAME_Z);
-        assertValidCoordinateArguments(x, y, z);
     }
 
     @Override
