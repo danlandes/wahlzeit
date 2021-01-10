@@ -20,7 +20,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
     private final double z;
 
 
-    public CartesianCoordinate(final double x, final double y, final double z) {
+    protected CartesianCoordinate(final double x, final double y, final double z) {
         assertArgumentsOfCartesianCoordinate(x, y, z);
         this.x = x;
         this.y = y;

@@ -24,6 +24,7 @@ import java.sql.*;
 import java.net.*;
 
 import org.wahlzeit.model.location.CartesianCoordinate;
+import org.wahlzeit.model.location.CoordinateCache;
 import org.wahlzeit.model.location.Location;
 import org.wahlzeit.model.location.SphericCoordinate;
 import org.wahlzeit.model.location.errors.CoordinateStateNotValid;
@@ -79,7 +80,7 @@ public class Photo extends DataObject {
 
 	protected long creationTime = System.currentTimeMillis();
 
-	protected Location location = new Location(new CartesianCoordinate(0, 0, 0));
+	protected Location location = new Location(CoordinateCache.getForCartesian(0, 0, 0));
 
 	public Photo() {
 		id = PhotoId.getNextId();

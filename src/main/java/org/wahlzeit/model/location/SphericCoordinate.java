@@ -20,7 +20,7 @@ public class SphericCoordinate extends AbstractCoordinate {
     private final double theta; // latitude: the Angle between the Z-Axsis and the the given line between sphere centre and point (Polar Angle)
     private final double radius; // Distance between centre of sphere and point (usually radius)
 
-    public SphericCoordinate(final double phi, final double theta, final double radius) {
+    protected SphericCoordinate(final double phi, final double theta, final double radius) {
         assertArgumentsOfSphericCoordinate(phi, theta, radius);
         this.phi = phi;
         this.theta = theta;

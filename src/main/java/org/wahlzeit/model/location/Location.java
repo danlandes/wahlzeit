@@ -46,13 +46,13 @@ public class Location implements SimplePersistence {
             final double x = rset.getDouble(CartesianCoordinate.TABLENAME_X);
             final double y = rset.getDouble(CartesianCoordinate.TABLENAME_Y);
             final double z = rset.getDouble(CartesianCoordinate.TABLENAME_Z);
-            this.coordinate = new CartesianCoordinate(x, y, z);
+            this.coordinate = CoordinateCache.getForCartesian(x, y, z);
             assertCartesianCoordinateIsValid(coordinate);
         } else if (PersistenceUtils.assertColumnIsPresent(SphericCoordinate.TABLENAME_PHI, rset)) {
             final double theta = rset.getDouble(SphericCoordinate.TABLENAME_THETA);
             final double radius = rset.getDouble(SphericCoordinate.TABLENAME_RADIUS);
             final double phi = rset.getDouble(SphericCoordinate.TABLENAME_PHI);
-            this.coordinate = new SphericCoordinate(phi, theta, radius);
+            this.coordinate = CoordinateCache.getAsSpheric(phi, theta, radius);
             assertSphericCoordinateIsValid(coordinate);
         } else {
             throw new SQLException("Could not extract Location");
