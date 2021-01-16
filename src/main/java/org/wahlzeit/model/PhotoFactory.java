@@ -22,9 +22,14 @@ package org.wahlzeit.model;
 
 import java.sql.*;
 
+import org.wahlzeit.doc.PatternInstance;
 import org.wahlzeit.model.plants.PlantPhotoFactory;
 import org.wahlzeit.services.*;
 
+@PatternInstance(
+		patternName = "Factory Pattern",
+		participants = { "Abstract Factory", "Singleton" }
+)
 /**
  * An Abstract Factory for creating photos and related objects.
  */

@@ -23,8 +23,15 @@ package org.wahlzeit.services;
 import java.util.*;
 import javax.mail.internet.*;
 
+import org.wahlzeit.doc.PatternInstance;
 import org.wahlzeit.utils.*;
 
+@PatternInstance(
+		patternName = "Value Object",
+		participants = {
+				"Shared Object, Immutable",
+		}
+)
 /**
  * An email address provides a simple email address representation.
  * It is a value object and implemented as immutable.

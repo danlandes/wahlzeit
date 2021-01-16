@@ -24,10 +24,14 @@ import java.io.*;
 import java.sql.*;
 import java.util.*;
 
+import org.wahlzeit.doc.PatternInstance;
 import org.wahlzeit.main.*;
 import org.wahlzeit.services.*;
 import org.wahlzeit.services.persistence.Persistent;
 
+@PatternInstance(
+		patternName = "Singleton"
+)
 /**
  * A photo manager provides access to and manages photos.
  */

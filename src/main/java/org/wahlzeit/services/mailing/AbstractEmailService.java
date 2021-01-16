@@ -22,10 +22,14 @@ package org.wahlzeit.services.mailing;
 
 import javax.mail.Message;
 
+import org.wahlzeit.doc.PatternInstance;
 import org.wahlzeit.services.EmailAddress;
 import org.wahlzeit.services.SysLog;
 import org.wahlzeit.utils.StringUtil;
 
+@PatternInstance(
+		patternName = "Strategy Pattern"
+)
 /**
  * Abstract superclass for non-trivial EmailServer implementations.
  * 

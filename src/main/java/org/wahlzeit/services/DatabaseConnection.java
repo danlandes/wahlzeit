@@ -20,9 +20,14 @@
 
 package org.wahlzeit.services;
 
+import org.wahlzeit.doc.PatternInstance;
+
 import java.sql.*;
 import java.util.*;
 
+@PatternInstance(
+		patternName = "Object Pool"
+)
 /**
  * A database connection wraps an RDMBS connection object.
  * It pools and reuses existing connections; it caches common SQL statements.
