@@ -3,6 +3,7 @@ package org.wahlzeit.model.plants;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoId;
 import org.wahlzeit.model.location.errors.PersistenceErrors;
+import org.wahlzeit.services.persistence.PersistenceUtils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,6 +29,7 @@ public class PlantPhoto extends Photo {
 
     public PlantPhoto(final ResultSet resultSet, PlantType type) throws SQLException {
         super(resultSet);
+        this.plantType = type;
         readFrom(resultSet);
     }
 
@@ -37,10 +39,10 @@ public class PlantPhoto extends Photo {
         super.readFrom(rset);
         this.speciesLatin = rset.getString(PlantPhotoLabels.PLANT_SPECIES_LATIN.label);
         this.speciesEN = rset.getString(PlantPhotoLabels.PLANT_SPECIES_EN.label);
-        if(this.plantType.equals(PlantType.TREE)) {
+        if(PersistenceUtils.assertColumnIsPresent(PlantPhotoLabels.TREE_FRUITS.label, rset)) {
             this.treeFruits = rset.getString(PlantPhotoLabels.TREE_FRUITS.label);
         }
-        if(this.plantType.equals(PlantType.FLOWER)) {
+        if(PersistenceUtils.assertColumnIsPresent(PlantPhotoLabels.FLOWER_COLOR.label, rset)) {
             this.flowerColor = rset.getString(PlantPhotoLabels.FLOWER_COLOR.label);
         }
     }

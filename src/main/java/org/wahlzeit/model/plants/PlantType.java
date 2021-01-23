@@ -22,4 +22,11 @@ public class PlantType {
         instances.put(name, type);
         return type;
     }
+
+    @Override
+    public String toString() {
+        return "PlantType{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
