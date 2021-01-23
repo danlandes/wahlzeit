@@ -13,6 +13,9 @@ public class PlantPhoto extends Photo {
 
     public String speciesLatin = "Nihil omnino mercedis";
     public String speciesEN = "not specified";
+    public PlantType plantType = PlantType.instanceOf("undefined");
+    private String treeFruits;
+    private String flowerColor;
 
     public PlantPhoto(PhotoId myId) {
         super(myId);
@@ -29,6 +32,12 @@ public class PlantPhoto extends Photo {
         super.readFrom(rset);
         this.speciesLatin = rset.getString(PlantPhotoLabels.PLANT_SPECIES_LATIN.label);
         this.speciesEN = rset.getString(PlantPhotoLabels.PLANT_SPECIES_EN.label);
+        if(this.plantType.equals(PlantType.TREE)) {
+            this.treeFruits = rset.getString(PlantPhotoLabels.TREE_FRUITS.label);
+        }
+        if(this.plantType.equals(PlantType.FLOWER)) {
+            this.flowerColor = rset.getString(PlantPhotoLabels.FLOWER_COLOR.label);
+        }
     }
 
     @Override
@@ -37,6 +46,12 @@ public class PlantPhoto extends Photo {
         super.writeOn(rset);
         rset.updateString(PlantPhotoLabels.PLANT_SPECIES_LATIN.label, speciesLatin);
         rset.updateString(PlantPhotoLabels.PLANT_SPECIES_EN.label, speciesEN);
+        if(this.plantType.equals(PlantType.TREE)) {
+            rset.updateString(PlantPhotoLabels.TREE_FRUITS.label, treeFruits);
+        }
+        if(this.plantType.equals(PlantType.FLOWER)) {
+            rset.updateString(PlantPhotoLabels.FLOWER_COLOR.label, flowerColor);
+        }
     }
 
     public String getSpeciesEN() {
