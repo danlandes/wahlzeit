@@ -16,9 +16,9 @@ public class PlantPhotoFactory extends PhotoFactory {
 
     public Photo createPhoto(ResultSet rs) throws SQLException {
         if (PersistenceUtils.assertColumnIsPresent(PlantPhotoLabels.FLOWER_COLOR.label, rs)) {
-            return new FlowerPhoto(rs);
+            return new PlantPhoto(rs, PlantType.FLOWER);
         } else if (PersistenceUtils.assertColumnIsPresent(PlantPhotoLabels.TREE_FRUITS.label, rs)) {
-            return new TreePhoto(rs);
+            return new PlantPhoto(rs, PlantType.TREE);
         }
         return new PlantPhoto(rs);
     }

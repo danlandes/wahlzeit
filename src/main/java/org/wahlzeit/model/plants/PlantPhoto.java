@@ -26,6 +26,11 @@ public class PlantPhoto extends Photo {
         readFrom(resultSet);
     }
 
+    public PlantPhoto(final ResultSet resultSet, PlantType type) throws SQLException {
+        super(resultSet);
+        readFrom(resultSet);
+    }
+
     @Override
     public void readFrom(ResultSet rset) throws SQLException {
         assertNotNull(rset, new PersistenceErrors.ResultSetIsNull.OfPlantPhoto());

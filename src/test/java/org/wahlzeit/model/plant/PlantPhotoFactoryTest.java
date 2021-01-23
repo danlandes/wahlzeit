@@ -6,13 +6,13 @@ import org.wahlzeit.mocks.MockTreePhotoResultSet;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoFactory;
 import org.wahlzeit.model.PhotoId;
-import org.wahlzeit.model.plants.FlowerPhoto;
 import org.wahlzeit.model.plants.PlantPhoto;
 import org.wahlzeit.model.plants.PlantPhotoFactory;
-import org.wahlzeit.model.plants.TreePhoto;
+import org.wahlzeit.model.plants.PlantType;
 
 import java.sql.SQLException;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class PlantPhotoFactoryTest {
@@ -33,14 +33,14 @@ public class PlantPhotoFactoryTest {
     @Test
     public void createTreePhotoWithResultSetShouldReturnDomainSpecificClass() throws SQLException {
         final PhotoFactory factory = PhotoFactory.getInstance();
-        final Photo result = factory.createPhoto(new MockTreePhotoResultSet());
-        assertTrue(result instanceof TreePhoto);
+        final PlantPhoto result = (PlantPhoto) factory.createPhoto(new MockTreePhotoResultSet());
+        assertEquals( result.plantType, PlantType.TREE);
     }
 
     @Test
     public void createFlowerPhotoWithResultSetShouldReturnDomainSpecificClass() throws SQLException {
         final PhotoFactory factory = PhotoFactory.getInstance();
-        final Photo result = factory.createPhoto(new MockFlowerPhotoResultSet());
-        assertTrue(result instanceof FlowerPhoto);
+        final PlantPhoto result = (PlantPhoto) factory.createPhoto(new MockFlowerPhotoResultSet());
+        assertEquals(result.plantType, PlantType.FLOWER);
     }
 }
