@@ -7,6 +7,7 @@ public class PlantType {
     private final static HashMap instances = new HashMap<String, PlantType>();
     public final static PlantType TREE = new PlantType("tree");
     public final static PlantType FLOWER = new PlantType("flower");
+    public PlantType parent = null;
 
     private PlantType(final String name) {
         this.name = name;
@@ -28,5 +29,9 @@ public class PlantType {
         return "PlantType{" +
                 "name='" + name + '\'' +
                 '}';
+    }
+
+    public boolean isSubtype(PlantType type) {
+        return type.equals(parent);
     }
 }
